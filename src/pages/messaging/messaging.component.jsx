@@ -45,10 +45,11 @@ function Chat() {
 
     const currentMsg = useRef();
     var messageLimit = 25;
-    var currentConversation = ''; //This should match the conversation being accessed
+    var currentConversation = 'TestConversation';
+    
 
-
-    const messagesRef = firestore.collection(currentConversation);
+    const messagesRef = 
+        firestore.collection('/conversations/' + currentConversation + '/messages');
 
     const messageLog = 
         messagesRef.orderBy('createdAt').endAtlimit(messageLimit);
@@ -98,13 +99,12 @@ function Chat() {
 represents an individual message sent in the chat
 */
 function ChatMessage(props) {
-    const { text, uid, photoURL } = props.message;
+    const {text, uid} = props.message;
 
     const messageType = uid === auth.currentUser.uid ? 'sent' : 'received'
 
     return (
     <div className = {`message ${messageType}`}>
-        <img src = {photoURL} />
         <p>{text}</p>
     </div>
     )
