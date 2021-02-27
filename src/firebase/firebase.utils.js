@@ -3,13 +3,12 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const config = {
-  apiKey: "AIzaSyABAZ_5bTQiOZS_wxvRp-7Zg6LTsGvmzco",
-  authDomain: "crwn-db-82593.firebaseapp.com",
-  projectId: "crwn-db-82593",
-  storageBucket: "crwn-db-82593.appspot.com",
-  messagingSenderId: "273723117644",
-  appId: "1:273723117644:web:bae3be52f2a70e5fe664e9",
-  measurementId: "G-SWGVXKNZ75"
+  apiKey: "AIzaSyBsu06wCyqc19HzVmuuHqMiepaCDhK-8OY",
+  authDomain: "campus-connector.firebaseapp.com",
+  projectId: "campus-connector",
+  storageBucket: "campus-connector.appspot.com",
+  messagingSenderId: "909438247237",
+  appId: "1:909438247237:web:320cdaa95864fc17779e2c"
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {

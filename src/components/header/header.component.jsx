@@ -14,30 +14,34 @@ import { ReactComponent as Logo } from '../../assests/crown.svg';
 import './header.styles.scss';
 
 const Header = ({ currentUser, hidden }) => (
-  <div className='header'>
-    <Link className='logo-container' to="/">
-      <Logo className='logo' />
-    </Link>
-    <div className='options'>
-      <Link className='option' to='/shop'>
-        SHOP
-      </Link>
-      <Link className='option' to='/shop'>
-        CONTACT
-      </Link>
+  <header className='header'>
+    {/* <div className='header__logo-box'>
+      <img src='img/logo-white.png' alt='Logo' className='header__logo' />
+    </div> */}
+
+    <div className='header__login'>
+      {/* <Link className='btn btn--blue' to="/signin">Sign up</Link>
+      <Link className='btn btn--blue' to="/signin">Log in</Link> */}
       {currentUser ? (
-        <div className='option' onClick={() => auth.signOut()}>
+        <div className='btn btn--blue' onClick={() => auth.signOut()}>
           SIGN OUT
         </div>
       ) : (
-        <Link className='option' to='/signin'>
+        <Link className='btn btn--blue' to='/signin'>
           SIGN IN
         </Link>
       )}
-      <CartIcon />
     </div>
-    {hidden ? null : <CartDropdown />}
-  </div>
+
+    <div className='header__text-box'>
+      <h1 className='heading-primary'>
+          <span className='heading-primary--main'>Campus Connector</span>
+          <span className='heading-primary--sub'>Find friends on your campus</span>
+      </h1>
+      
+      <a href='#' className='btn btn--blue btn--animated'>Find friends</a>
+    </div>
+  </header>
 );
 
 const mapStateToProps = createStructuredSelector({
