@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { auth } from '../../firebase/firebase.utils';
-import CartIcon from '../cart-icon/cart-icon.component';
-import CartDropdown from '../cart-dropdown/cart-dropdown.component';
-import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { Typeahead } from "react-bootstrap-typeahead";
 import { firestore } from '../../firebase/firebase.utils';
@@ -51,7 +48,7 @@ class Directory extends React.Component {
         <ul>
           {items.map(item => (
             <li>
-              <span>{item.email}</span>
+              <span key={items.indexOf(item)}>{item.interests}</span>
             </li>
           ))}
         </ul>
@@ -60,7 +57,13 @@ class Directory extends React.Component {
   }
 }
 
-export default Directory;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
+});
+
+export default connect(mapStateToProps)(Directory);
+
+// export default Directory;
 
 // // const auth = firebase.auth();
 // // const [user] = useAuthState(auth);

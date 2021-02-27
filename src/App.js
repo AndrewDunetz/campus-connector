@@ -6,9 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import './App.css';
 
 import HomePage from './pages/homepage/homepage.component';
-import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import CheckoutPage from './pages/checkout/checkout.component';
 
 import Header from './components/header/header.component';
 
@@ -16,8 +14,6 @@ import { auth, createUserProfileDocument, addCollectionAndDocuments } from './fi
 
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
-import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
-import Chat from './pages/messaging/messaging.component';
 import MessagingComponent from './pages/messaging/messaging.component';
 
 class App extends React.Component {
@@ -54,8 +50,6 @@ class App extends React.Component {
         {/* <Header /> */}
         <Switch>
           <Route exact path='/' component={Header} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
           <Route exact path='/messages' component={MessagingComponent} />
           {/* <Route exact path='/homepage' component={HomePage} />  */}
           <Route 
@@ -87,8 +81,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  collectionsArray: selectCollectionsForPreview 
+  currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = dispatch => ({
