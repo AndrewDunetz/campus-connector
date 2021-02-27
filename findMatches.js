@@ -93,16 +93,17 @@ function run()
           var doc_id = doc.id;
 console.log("DOC ID - " + doc.id);
           var user = doc["User"];
-          var interests = doc["Interests"];
+          var interests = doc["interests"];
+          console.log(interests);
           var match = {}
           for (interest in interests)
           {
              console.log("################################################");
              console.log("Looking for others with this interest: " + interests[interest]);
-             var docRef = db.collection("users").where("Interests", "array-contains", interests[interest]);
+             var docRef = db.collection("users").where("interests", "array-contains", interests[interest]);
 
                    await docRef.get().then(async function(querySnapshot) {
-                   console.log("FOUND " + querySnapshot.size + " matches for" + interests[interest]);
+                   console.log("FOUND " + querySnapshot.size + " matches for " + interests[interest]);
            
                    if (querySnapshot.size > 1)
                    {

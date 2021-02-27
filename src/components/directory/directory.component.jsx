@@ -62,18 +62,20 @@ function Type() {
 
   const submitSearch = () => {
     if (interestsSearchVal) {
-      typeahead.getInstance().clear();
+      // typeahead.getInstance().clear();
       // props.history.push(`/interests/${interestsSearchVal}`);
       console.log("IN HERE");
-      // const allUsers = firestore.collection("users");
-      // const userSnapshot = allUsers.get();
-      // var matchesArray = [];
-      // userSnapshot.forEach(doc => { // adds all users with the searched interest to matchesArray
-      //   var thisUserInterests = doc.data();
-      //   if (stuff.interests.contains(interestsSearchVal)) {
-      //     matchesArray.push(doc.id.toString());
-      //   }
-      // });
+      const allUsers = firestore.collection("users");
+
+      
+      var matchesArray = [];
+      let snapshot = allUsers.get();
+      snapshot.forEach(doc => { // adds all users with the searched interest to matchesArray
+        var thisUserInterests = doc.data();
+        if (thisUserInterests.contains(interestsSearchVal)) {
+          matchesArray.push(doc.id.toString());
+        }
+      });
 
     }
     else {
@@ -154,7 +156,7 @@ class Directory extends React.Component {
         <div className='btn btn--blue u-margin-right-small'>
           Edit Profile
         </div>
-        <div className='btn btn--blue' onClick={() => auth.signOut()}>
+        <div className='btn btn--blue u-margin-right-small' onClick={() => auth.signOut()}>
           SIGN OUT
         </div>
         <div className='btn btn--blue' onClick={() => findMatches()}>

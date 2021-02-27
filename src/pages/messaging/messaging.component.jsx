@@ -67,7 +67,7 @@ function Chat() {
     }
 
     return (
-        <>
+        <div>
             <main>
                 {messages && messages.map(msg => <ChatMessage key = {msg.id} message = {msg}/>)}
                 
@@ -81,7 +81,7 @@ function Chat() {
                 <button type = "submit">{"send"}</button>
 
             </form> 
-        </>
+        </ div>
     )
 }
 
