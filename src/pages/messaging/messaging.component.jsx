@@ -52,7 +52,7 @@ function Chat() {
         firestore.collection('/conversations/' + currentConversation + '/messages');
 
     const messageLog = 
-        messagesRef.orderBy('createdAt').endAtlimit(messageLimit);
+        messagesRef.orderBy('createdAt').endAt(messageLimit);
     const [messages] = useCollectionData(messageLog, {idField: 'id'});
 
     const [msgDraft, updateMsgDraft] = useState(''); 

@@ -9,11 +9,10 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { Typeahead } from "react-bootstrap-typeahead";
+import firestore from '../../firebase/firebase.utils';
 
 // import 'firebase/auth';
 // import {useAuthState} from 'react-firebase-hooks/auth';
-
-// const db = firestore();
 
 import './directory.styles.scss';
 import '../../sass/main.scss';
@@ -21,8 +20,12 @@ import '../../sass/main.scss';
 // const auth = firebase.auth();
 // const [user] = useAuthState(auth);
 
+const db = firestore;
+// const snapshot = db.collection('interests').get();
+
 const Directory = ({ currentUser }) => (
   console.log(currentUser.id), 
+  // console.log(snapshot),
   <div>
     {/* <Typeahead
       placeholder="Search for Friends"
