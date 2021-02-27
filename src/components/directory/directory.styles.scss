@@ -4,3 +4,12 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
+.company-search-input {
+  width: 400px !important;
+  background: #f1f3f4 !important;
+}
+
+.company-search-input:focus {
+  background: #ffffff !important;
+}

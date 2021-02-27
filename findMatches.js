@@ -91,8 +91,6 @@ function run()
      //console.log(resultJson);
      resultJson.forEach(async function(doc) {
           var doc_id = doc.id;
-          
-console.log("Test: " + doc.user);
 console.log("DOC ID - " + doc.id);
           var user = doc["User"];
           var interests = doc["Interests"];

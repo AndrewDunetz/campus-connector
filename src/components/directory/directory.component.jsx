@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Navbar, Nav, Button, Alert, Badge } from "react-bootstrap";
+import {
+  faChartPie,
+  faSearch,
+  faCog,
+  faUsersCog,
+  faUser,
+  faHome,
+  faEnvelope,
+  faCloudUploadAlt
+} from "@fortawesome/free-solid-svg-icons";
 
 import { auth } from '../../firebase/firebase.utils';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
@@ -13,6 +25,83 @@ import { firestore } from '../../firebase/firebase.utils';
 
 import './directory.styles.scss';
 import '../../sass/main.scss';
+
+function Type() {
+  var resultJson;
+  var interestArray = [];
+  let docRef = firestore.collection("interests");
+  let allDocs = docRef.get()
+    .then(snapshot => {
+       resultJson = snapshot.docs.map(doc => {
+          //return { id: doc.id, ...doc.data() }
+          interestArray.push(doc.id.toString());
+          return doc.id
+       });
+       //console.log(JSON.stringify(resultJson));
+       //res.json(resultJson);
+  })
+  .catch(err => {
+    console.log('Error getting interests documents', err);
+  });
+
+  const { interests } = useState();
+  const [interestsSearchVal, setInterestsSearchVal] = useState();
+
+  const searchChange = val => {
+    if (val && val.length) {
+      setInterestsSearchVal(val[0]);
+      console.log("IN HERE 3");
+    } else {
+      setInterestsSearchVal("");
+    }
+  };
+
+  const submitSearch = () => {
+    if (interestsSearchVal) {
+      typeahead.getInstance().clear();
+      // props.history.push(`/interests/${interestsSearchVal}`);
+      console.log("IN HERE");
+    }
+    else {
+      console.log("IN HERE 2");
+          }
+  };
+
+  let typeahead;
+
+  // const andrewRef = firestore.collection('users').doc('jW7rVBpMLnTFDjmL9z39XLqWI4J3');
+  // const allUsers = firestore.collection('users').get();
+  // const snapshot = await allUsers.get();
+  // snapshot.forEach(doc => {
+  //   console.log(doc.id, '=>', doc.data()); // currently print's each user's data to console log
+    
+  // });
+  // const snapshot = await citiesRef.where('capital', '==', true).get();
+
+  console.log(interestArray);
+ 
+  return (
+    <Nav className="ml-4 mr-auto">
+    <React.Fragment>
+      <Typeahead
+        id="id"
+        placeholder="Search for Friends"
+        onChange={searchChange}
+        options={interestArray || []}
+        labelKey="name"
+        clearButton={true}
+        inputProps={{
+          className: "company-search-input"
+        }}
+        ref={el => (typeahead = el)}
+      />
+      <Button variant="primary" onClick={submitSearch}>
+        <FontAwesomeIcon icon={faSearch} size="1x" />
+      </Button>
+    </React.Fragment>
+    </ Nav>
+  )
+}
 
 class Directory extends React.Component {
   constructor(props) {
@@ -42,9 +131,24 @@ class Directory extends React.Component {
 
     return (
       <div>
+        <div className='btn btn--blue u-margin-right-small'>
+          Edit Profile
+        </div>
         <div className='btn btn--blue' onClick={() => auth.signOut()}>
           SIGN OUT
         </div>
+        <Type></Type>
+        {/* <Typeahead
+          placeholder="Search for Friends"
+          onChange={searchChange}
+          options={interests.data || []}
+          labelKey="name"
+          clearButton={true}
+          inputProps={{
+            className: "company-search-input"
+          }}
+          ref={el => (typeahead = el)}
+        /> */}
         <ul>
           {items.map(item => (
             <li>
