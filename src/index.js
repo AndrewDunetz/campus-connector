@@ -6,6 +6,10 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { store, persistor } from './redux/store';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+// import 'react-bootstrap-typeahead/css/Typeahead-bs4.css';
+
 import './index.css';
 import App from './App';
 //import reportWebVitals from './reportWebVitals';

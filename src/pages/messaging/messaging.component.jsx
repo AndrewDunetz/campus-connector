@@ -1,21 +1,13 @@
 import React, { useState, useRef } from 'react';
-// import '../src/App.css'; //Using main app css, can be replaced
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
+import './messaging.styles.scss';
 
 
-// firebase.initializeApp({
-//     apiKey: "AIzaSyBsu06wCyqc19HzVmuuHqMiepaCDhK-8OY",
-//     authDomain: "campus-connector.firebaseapp.com",
-//     projectId: "campus-connector",
-//     storageBucket: "campus-connector.appspot.com",
-//     messagingSenderId: "909438247237",
-//     appId: "1:909438247237:web:6e88a9f6fd07f3c1779e2c"
-// })
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -48,12 +40,11 @@ function Chat() {
     var currentConversation = 'TestConversation';
     
 
-    const messagesRef = 
-        firestore.collection('/conversations/' + currentConversation + '/messages');
+    const messagesRef = firestore.collection('/conversations/' + currentConversation + '/messages');
 
-    const messageLog = 
-        messagesRef.orderBy('createdAt')//.endAt(messageLimit);
-    const [messages] = messageLog.useCollectionData(messageLog/*, {idField: 'id'}*/);
+    const query = messagesRef.orderBy('createdAt').limit(messageLimit + 3);
+
+    const [messages] = useCollectionData(query, { idField: 'id' });
 
     const [msgDraft, updateMsgDraft] = useState(''); 
 
@@ -79,7 +70,7 @@ function Chat() {
         <>
             <main>
                 {messages && messages.map(msg => <ChatMessage key = {msg.id} message = {msg}/>)}
-
+                
                 <div ref = {currentMsg}></div>
             </main> 
 
@@ -104,6 +95,7 @@ function ChatMessage(props) {
 
     return (
     <div className = {`message ${messageType}`}>
+        {/* <img src={photoURL} /> */}
         <p>{text}</p>
     </div>
     )

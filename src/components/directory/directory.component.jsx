@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Navbar, Nav, Button, Alert, Badge } from "react-bootstrap";
+import { Navbar, Nav, Button, Alert, Badge, Form } from "react-bootstrap";
 import {
   faChartPie,
   faSearch,
@@ -25,6 +25,10 @@ import { firestore } from '../../firebase/firebase.utils';
 
 import './directory.styles.scss';
 import '../../sass/main.scss';
+
+function findMatches() {
+
+}
 
 function Type() {
   var resultJson;
@@ -61,6 +65,16 @@ function Type() {
       typeahead.getInstance().clear();
       // props.history.push(`/interests/${interestsSearchVal}`);
       console.log("IN HERE");
+      // const allUsers = firestore.collection("users");
+      // const userSnapshot = allUsers.get();
+      // var matchesArray = [];
+      // userSnapshot.forEach(doc => { // adds all users with the searched interest to matchesArray
+      //   var thisUserInterests = doc.data();
+      //   if (stuff.interests.contains(interestsSearchVal)) {
+      //     matchesArray.push(doc.id.toString());
+      //   }
+      // });
+
     }
     else {
       console.log("IN HERE 2");
@@ -81,7 +95,6 @@ function Type() {
   console.log(interestArray);
  
   return (
-    <Nav className="ml-4 mr-auto">
     <React.Fragment>
       <Typeahead
         id="id"
@@ -92,14 +105,21 @@ function Type() {
         clearButton={true}
         inputProps={{
           className: "company-search-input"
-        }}
+         }}
         ref={el => (typeahead = el)}
       />
       <Button variant="primary" onClick={submitSearch}>
         <FontAwesomeIcon icon={faSearch} size="1x" />
       </Button>
     </React.Fragment>
-    </ Nav>
+    // <Nav className="ml-4 mr-auto">
+    //   <React.Fragment>
+        
+    //     <Button variant="primary" onClick={submitSearch}>
+    //       <FontAwesomeIcon icon={faSearch} size="1x" />
+    //     </Button>
+    //   </React.Fragment>
+    // </ Nav>
   )
 }
 
@@ -136,6 +156,9 @@ class Directory extends React.Component {
         </div>
         <div className='btn btn--blue' onClick={() => auth.signOut()}>
           SIGN OUT
+        </div>
+        <div className='btn btn--blue' onClick={() => findMatches()}>
+          Find Matches
         </div>
         <Type></Type>
         {/* <Typeahead
