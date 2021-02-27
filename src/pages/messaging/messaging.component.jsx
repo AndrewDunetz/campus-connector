@@ -53,7 +53,7 @@ function Chat() {
 
     const messageLog = 
         messagesRef.orderBy('createdAt')//.endAt(messageLimit);
-    const [messages] = messageLog.get();//useCollectionData(messageLog/*, {idField: 'id'}*/);
+    const [messages] = messageLog.useCollectionData(messageLog/*, {idField: 'id'}*/);
 
     const [msgDraft, updateMsgDraft] = useState(''); 
 
