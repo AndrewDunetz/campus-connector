@@ -6,7 +6,7 @@ import './homepage.styles.scss';
 
 const HomePage = () => (
   <div className='homepage'>
-    <Directory currentUser='jW7rVBpMLnTFDjmL9z39XLqWI4J3'/>
+    <Directory currentUser />
   </div>
 );
 

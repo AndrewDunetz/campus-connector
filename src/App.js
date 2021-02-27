@@ -17,6 +17,8 @@ import { auth, createUserProfileDocument, addCollectionAndDocuments } from './fi
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
+import Chat from './pages/messaging/messaging.component';
+import MessagingComponent from './pages/messaging/messaging.component';
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -54,13 +56,14 @@ class App extends React.Component {
           <Route exact path='/' component={Header} />
           <Route path='/shop' component={ShopPage} />
           <Route exact path='/checkout' component={CheckoutPage} />
+          <Route exact path='/messages' component={MessagingComponent} />
           {/* <Route exact path='/homepage' component={HomePage} />  */}
           <Route 
             exact 
             path='/homepage' 
             render={() => 
               this.props.currentUser ? (
-                <HomePage /> 
+                <HomePage currentUser /> 
               ) : (
                 <Redirect to='/' />
               )

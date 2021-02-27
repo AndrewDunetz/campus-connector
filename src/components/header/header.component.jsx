@@ -20,8 +20,6 @@ const Header = ({ currentUser, hidden }) => (
     </div> */}
 
     <div className='header__login'>
-      {/* <Link className='btn btn--blue' to="/signin">Sign up</Link>
-      <Link className='btn btn--blue' to="/signin">Log in</Link> */}
       {currentUser ? (
         <div className='btn btn--blue' onClick={() => auth.signOut()}>
           SIGN OUT
@@ -39,7 +37,10 @@ const Header = ({ currentUser, hidden }) => (
           <span className='heading-primary--sub'>Find friends on your campus</span>
       </h1>
       
-      <a href='#' className='btn btn--blue btn--animated'>Find friends</a>
+      {/* <a href='#' className='btn btn--blue btn--animated'>Find friends</a> */}
+      <Link className='btn btn--blue btn--animated' to='/messages'>
+        Temp messaging button
+      </Link>
     </div>
   </header>
 );
