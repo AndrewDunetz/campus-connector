@@ -83,34 +83,13 @@ async function dumpTable(collectionName)
 
 async function run()
 {
-    var fileText = fs.readFileSync("hobbies.txt", "utf-8");
-    var textByLine = fileText.split("\n");
-    
-    var docRef;
-    for(var i = 0; i < textByLine.length; i++) {
-        var line = textByLine[i];
-     
-        if (line.startsWith("COLLECTION_NAME") > 0)
-        {
-           collectionName = line.replace("COLLECTION_NAME: ","");
-           docRef = db.collection(collectionName);
-        }
-        else
-        {
-           if (line.length > 0)
-           {
-              console.log(line);
-              if (docRef)
-	      {
-                 let setDoc = docRef.doc(line).set({});
-                 console.log("Writing row for collection, " + collectionName + "," + line);
-	      }
-           }
-        }
-    }
-
+  const snapshot = await db.collection('interests').get();
+  snapshot.forEach((doc) => {
+    console.log(doc.id, '=>', doc.data()); // print out every interest, and the people in that interest
+  });
 }
 run();
+
 
 
 

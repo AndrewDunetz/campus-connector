@@ -54,7 +54,18 @@ class App extends React.Component {
           <Route exact path='/' component={Header} />
           <Route path='/shop' component={ShopPage} />
           <Route exact path='/checkout' component={CheckoutPage} />
-          <Route exact path='/homepage' component={HomePage} />
+          {/* <Route exact path='/homepage' component={HomePage} />  */}
+          <Route 
+            exact 
+            path='/homepage' 
+            render={() => 
+              this.props.currentUser ? (
+                <HomePage /> 
+              ) : (
+                <Redirect to='/' />
+              )
+            } 
+          />
           <Route 
             exact 
             path='/signin' 
