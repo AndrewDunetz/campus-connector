@@ -52,8 +52,8 @@ function Chat() {
         firestore.collection('/conversations/' + currentConversation + '/messages');
 
     const messageLog = 
-        messagesRef.orderBy('createdAt').endAt(messageLimit);
-    const [messages] = useCollectionData(messageLog, {idField: 'id'});
+        messagesRef.orderBy('createdAt')//.endAt(messageLimit);
+    const [messages] = messageLog.get();//useCollectionData(messageLog/*, {idField: 'id'}*/);
 
     const [msgDraft, updateMsgDraft] = useState(''); 
 
@@ -62,13 +62,12 @@ function Chat() {
     const sendMessage = async(e) => {
         e.preventDefault();
 
-        const {uid, photoURL} = auth.currentUser;
+        const uid = auth.currentUser.uid;
 
         await messagesRef.add({
             text: msgDraft,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            uid,
-            photoURL
+            uid
         })
 
         updateMsgDraft('');

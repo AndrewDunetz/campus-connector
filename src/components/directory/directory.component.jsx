@@ -9,7 +9,7 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { Typeahead } from "react-bootstrap-typeahead";
-import firestore from '../../firebase/firebase.utils';
+import { firestore } from '../../firebase/firebase.utils';
 
 // import 'firebase/auth';
 // import {useAuthState} from 'react-firebase-hooks/auth';
@@ -20,12 +20,17 @@ import '../../sass/main.scss';
 // const auth = firebase.auth();
 // const [user] = useAuthState(auth);
 
-const db = firestore;
+// const db = firestore;
 // const snapshot = db.collection('interests').get();
 
 const Directory = ({ currentUser }) => (
-  console.log(currentUser.id), 
-  // console.log(snapshot),
+  // console.log(currentUser.id), 
+  // firestore.collection("users").get().then((querySnapshot) => {
+  //   querySnapshot.forEach((doc) => {
+  //       console.log(`${doc.id} => ${doc.data()}`);
+  //       <h1>{doc.id}</h1>
+  //   });
+  // }),
   <div>
     {/* <Typeahead
       placeholder="Search for Friends"
@@ -38,13 +43,16 @@ const Directory = ({ currentUser }) => (
       }}
       ref={el => (typeahead = el)}
     /> */}
-    {currentUser ? (
-      <div className='btn btn--blue' onClick={() => auth.signOut()}>
-        SIGN OUT
-      </div>
-    ) : (
-      null
-    )}
+    {/* {firestore.collection("users").get().map(({ id, ...otherSectionProps}) => (
+      <h1>{id}</h1>
+    ))} */}
+  {currentUser ? (
+    <div className='btn btn--blue' onClick={() => auth.signOut()}>
+      SIGN OUT
+    </div>
+  ) : (
+    null
+  )}
   </div>
 );
 
