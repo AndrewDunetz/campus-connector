@@ -67,7 +67,7 @@ function Chat() {
     }
 
     return (
-        <div>
+        <div className='messaging-window'>
             <main>
                 {messages && messages.map(msg => <ChatMessage key = {msg.id} message = {msg}/>)}
                 

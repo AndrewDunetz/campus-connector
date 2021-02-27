@@ -27,7 +27,7 @@ import './directory.styles.scss';
 import '../../sass/main.scss';
 
 function findMatches() {
-
+  
 }
 
 function Type() {
@@ -66,16 +66,33 @@ function Type() {
       // props.history.push(`/interests/${interestsSearchVal}`);
       console.log("IN HERE");
       const allUsers = firestore.collection("users");
-
-      
+      console.log(interestsSearchVal);
       var matchesArray = [];
-      let snapshot = allUsers.get();
-      snapshot.forEach(doc => { // adds all users with the searched interest to matchesArray
-        var thisUserInterests = doc.data();
-        if (thisUserInterests.contains(interestsSearchVal)) {
-          matchesArray.push(doc.id.toString());
-        }
-      });
+
+      let docRef = firestore.collection("users").where("interests", 'array-contains', interestsSearchVal);
+      let allDocs = docRef.get()
+        .then(snapshot => {
+          resultJson = snapshot.docs.map(doc => {
+              //return { id: doc.id, ...doc.data() }
+              matchesArray.push(doc.id.toString());
+              return doc.id
+          });
+        //console.log(JSON.stringify(resultJson));
+        //res.json(resultJson);
+        console.log(matchesArray);
+      })
+  .catch(err => {
+    console.log('Error getting interests documents', err);
+  });
+
+      // var matchesArray = [];
+      // let snapshot = allUsers.get();
+      // snapshot.forEach(doc => { // adds all users with the searched interest to matchesArray
+      //   var thisUserInterests = doc.data();
+      //   if (thisUserInterests.contains(interestsSearchVal)) {
+      //     matchesArray.push(doc.id.toString());
+      //   }
+      // });
 
     }
     else {
@@ -97,6 +114,7 @@ function Type() {
   console.log(interestArray);
  
   return (
+    <Nav className="ml-4 mr-auto">
     <React.Fragment>
       <Typeahead
         id="id"
@@ -114,6 +132,7 @@ function Type() {
         <FontAwesomeIcon icon={faSearch} size="1x" />
       </Button>
     </React.Fragment>
+    </ Nav>
     // <Nav className="ml-4 mr-auto">
     //   <React.Fragment>
         
@@ -157,23 +176,12 @@ class Directory extends React.Component {
           Edit Profile
         </div>
         <div className='btn btn--blue u-margin-right-small' onClick={() => auth.signOut()}>
-          SIGN OUT
+          Sign out
         </div>
         <div className='btn btn--blue' onClick={() => findMatches()}>
           Find Matches
         </div>
         <Type></Type>
-        {/* <Typeahead
-          placeholder="Search for Friends"
-          onChange={searchChange}
-          options={interests.data || []}
-          labelKey="name"
-          clearButton={true}
-          inputProps={{
-            className: "company-search-input"
-          }}
-          ref={el => (typeahead = el)}
-        /> */}
         <ul>
           {items.map(item => (
             <li>
