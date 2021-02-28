@@ -20,7 +20,6 @@ import { auth } from '../../firebase/firebase.utils';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { Typeahead } from "react-bootstrap-typeahead";
 import { firestore } from '../../firebase/firebase.utils';
-import findMatches from '../../findMatches';
 
 // import 'firebase/auth';
 // import {useAuthState} from 'react-firebase-hooks/auth';
@@ -29,7 +28,7 @@ import './directory.styles.scss';
 import '../../sass/main.scss';
 
 async function matches() {
-  findMatches();
+  // findMatches();
 }
 
 function Type() {
