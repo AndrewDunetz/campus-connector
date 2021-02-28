@@ -14,6 +14,7 @@ import {
   faEnvelope,
   faCloudUploadAlt
 } from "@fortawesome/free-solid-svg-icons";
+import UserProfileBox from '../user-profile-box/user-profile-box.component';
 
 import { auth } from '../../firebase/firebase.utils';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
@@ -132,13 +133,14 @@ function Type() {
         </Button>
       </React.Fragment>
       <div>
-        <ul>
+        {/* <ul> */}
           {users.map(user => (
-            <li>
-              <span key={user.indexOf(user)}>{user}</span>
-            </li>
+            // <li>
+              // <span key={user.indexOf(user)}>{user}</span>
+              <UserProfileBox {...user}>{user}</UserProfileBox>
+            // </li>
           ))}
-        </ul>
+        {/* </ul> */}
       </div>
     </ Nav>
   )

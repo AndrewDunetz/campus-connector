@@ -35,8 +35,6 @@
 
 // }
 
-
-function findMatches() {
 const path = require("path");
 const rp = require("request-promise");
 //const pdf = require("pdf-parse");
@@ -169,7 +167,4 @@ console.log("DOC ID - " + doc.id);
   }
 
 }
-}
-//run();
-
-export default findMatches;
+run();
