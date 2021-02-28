@@ -1,0 +1,21 @@
+.user-profile-box {
+    border: solid 2px rgb(47, 113, 255);
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    border-radius: 20px;
+    margin-left: 40px;
+}
+
+.username {
+    margin-top: 8px;
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.message-btn {
+    margin-right: 20px;
+    font-size: 20px;
+}
+

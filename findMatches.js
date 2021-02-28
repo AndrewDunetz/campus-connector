@@ -110,6 +110,38 @@ async function loginToFirestore()
 //loginToFirestore();
 admin.initializeApp();
 
+const submitSearch = () => {
+  const [user] = useAuthState.firebase.auth();
+  const userInterests = firestore.collection("users").where('user', '===', user).interests; // userInterests should be an array - is this what it is now?
+  for (interestsSearchVal in userInterests) {
+    // typeahead.getInstance().clear();
+    // props.history.push(`/interests/${interestsSearchVal}`);
+    console.log("IN HERE");
+    const allUsers = firestore.collection("users");
+    console.log(interestsSearchVal);
+    var matchesArray = [];
+
+    let docRef = firestore.collection("users").where("interests", 'array-contains', interestsSearchVal);
+    let allDocs = docRef.get()
+      .then(snapshot => {
+        resultJson = snapshot.docs.map(doc => {
+            //return { id: doc.id, ...doc.data() }
+            matchesArray.push(doc.data().displayName);
+            // <div>
+            //   <span>{doc.data().displayName}</span>
+            // </div>
+            return doc.data().displayName
+        });
+        setUsers(resultJson);
+      //console.log(JSON.stringify(resultJson));
+      //res.json(resultJson);
+      console.log(matchesArray);
+    })
+  .catch(err => {
+    console.log('Error getting interests documents', err);
+  });
+  }
+};
 //OLD WAY admin.credential.cert(process.env.GOOGLE_APPLICATION_CREDENTIALS)
 
 let db = admin.firestore();

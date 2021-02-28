@@ -1,10 +1,17 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import MessagingComponent from '../../pages/messaging/messaging.component';
 
-const UserProfileBox = ({ userName }) => (
+import './user-profile-box.styles.scss';
+
+const UserProfileBox = ({ displayName, email }) => (
   <div className="user-profile-box" >
-      <div className='username'>{userName}</div>
-      <div className='btn btn--blue'>Message</div>
+      <span className='username'>{displayName}</span>
+      {/* <div className='btn-small btn--blue message-btn'>Message</div> */}
+      <Link className='btn-small btn--blue message-btn' to='/messages'>
+        Message
+      </Link>
   </div>
 );
 

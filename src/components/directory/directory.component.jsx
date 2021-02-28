@@ -20,16 +20,16 @@ import { auth } from '../../firebase/firebase.utils';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { Typeahead } from "react-bootstrap-typeahead";
 import { firestore } from '../../firebase/firebase.utils';
-
+import firebase from '../../firebase/firebase.utils';
+// import firebase from 'firebase/app';
+import 'firebase/auth';
+import {useAuthState} from 'react-firebase-hooks/auth';
 // import 'firebase/auth';
 // import {useAuthState} from 'react-firebase-hooks/auth';
 
 import './directory.styles.scss';
 import '../../sass/main.scss';
-
-async function matches() {
-  // findMatches();
-}
+import App from '../../App';
 
 function Type() {
   var resultJson;
@@ -85,7 +85,8 @@ function Type() {
               // <div>
               //   <span>{doc.data().displayName}</span>
               // </div>
-              return doc.data().displayName
+              // return doc.data().displayName
+              return doc.data()
           });
           setUsers(resultJson);
         //console.log(JSON.stringify(resultJson));
@@ -101,47 +102,112 @@ function Type() {
           }
   };
 
-  const addInterest = () => {
+  const findMatches = () => {
+    firebase.auth().onAuthStateChanged(async function(user) {
+      console.log(user.email);
+      var finalResultJson = [];
+      var userDoc = firestore.collection("users").where('email', '==', user.email).get()
+        .then(snapshot => {
+          snapshot.docs.forEach(doc => {
+            console.log(doc.data().interests);
+            //.interests; // userInterests should be an array - is this what it is now?
+            let interest1;
+            for (interest1 in doc.data().interests) {
+              // typeahead.getInstance().clear();
+              // props.history.push(`/interests/${interestsSearchVal}`);
+              console.log("IN HERE");
+              const allUsers = firestore.collection("users");
+              console.log(doc.data().interests[interest1]);
+              var interest2 = doc.data().interests[interest1];
+              var matchesArray = [];
 
+              let docRef = firestore.collection("users").where("interests", 'array-contains', interest2).get()
+                .then(snapshot => {
+                  resultJson = snapshot.docs.map(doc => {
+                      //return { id: doc.id, ...doc.data() }
+                      console.log(doc);
+                      matchesArray.push(doc.data().displayName);
+                      // <div>
+                      //   <span>{doc.data().displayName}</span>
+                      // </div>
+                      // var data = doc.data();
+                      // data["matchReason"] = interest2;
+                      return doc.data();
+                  });
+                  // console.log(resultJson);
+                  finalResultJson = finalResultJson.concat(resultJson);
+                  console.log(finalResultJson);
+                  setUsers(finalResultJson);
+                //console.log(JSON.stringify(resultJson));
+                //res.json(resultJson);
+                // console.log(matchesArray);
+              })
+            .catch(err => {
+              console.log('Error getting interests documents', err);
+            });
+          }
+        })
+      });
+    });
+  };
+
+  const addInterest = () => {
+    console.log(firebase.auth().currentUser);
+    //interestsSearchVal
+    const uid = auth.currentUser.uid;
+    const userRef = firestore.collection('users').doc(uid);
+    // const unionRes = /*await*/ userRef.update([
+    //   interests: userRef.arrayUnion('interest to add');
+    // ])
+    // NEED TO TEST SOMETHING _ ANDREW
   };
 
   let typeahead;
 
-  console.log(interestArray);
+  // console.log(interestArray);
   
   return (
-    <Nav className="ml-4 mr-auto">
-      <React.Fragment>
-        <Typeahead
-          id="id"
-          placeholder="Search for Friends"
-          onChange={searchChange}
-          options={interestArray || []}
-          labelKey="name"
-          clearButton={true}
-          inputProps={{
-            className: "company-search-input u-margin-right-small"
-          }}
-          ref={el => (typeahead = el)}
-        />
-        <Button className='u-margin-right-small' variant="primary" onClick={submitSearch}>
-          <FontAwesomeIcon icon={faSearch} size="1x" />
-        </Button>
-        <Button variant="primary" onClick={addInterest}>
-          Add Interest
-        </Button>
-      </React.Fragment>
-      <div>
-        {/* <ul> */}
-          {users.map(user => (
-            // <li>
-              // <span key={user.indexOf(user)}>{user}</span>
-              <UserProfileBox key={user} {...user}>{user}</UserProfileBox>
-            // </li>
-          ))}
-        {/* </ul> */}
+    <Fragment>
+      <Nav className="ml-4 mr-auto navigation-bar">
+        <React.Fragment>
+          <Typeahead
+            id="id"
+            placeholder="Search for Friends"
+            onChange={searchChange}
+            options={interestArray || []}
+            labelKey="name"
+            clearButton={true}
+            inputProps={{
+              className: "company-search-input"
+            }}
+            ref={el => (typeahead = el)}
+          />
+          <Button className='u-margin-right-small u-margin-left-small' variant="primary" onClick={submitSearch}>
+            <FontAwesomeIcon icon={faSearch} size="1x" />
+          </Button>
+          <Button className='u-margin-right-small' variant="primary" onClick={addInterest}>
+            Add Interest
+          </Button>
+          <Button variant="primary" onClick={findMatches}>
+            Find Matches
+          </Button>
+        </React.Fragment>
+      </ Nav>
+      <div className='user-container'>
+          {/* <ul> */}
+            {/* {users.map(user => ( */}
+            <div className='interest'>
+              {interestsSearchVal}
+            </div>
+            {users.map(({ id, ...otherProps}) => (
+              // <li>
+                // <span key={user.indexOf(user)}>{user}</span>
+                <UserProfileBox key={id} {...otherProps}></UserProfileBox>
+              // </li>
+            ))}
+          {/* </ul> */}
       </div>
-    </ Nav>
+    </Fragment>
   )
 }
 
@@ -166,6 +232,7 @@ class Directory extends React.Component {
           this.setState({ items: items });   //set data in state here
         });
   }
+  
 
   render() {
     const items = this.state.items;
@@ -180,9 +247,9 @@ class Directory extends React.Component {
           {/* <div className='btn btn--blue u-margin-right-small'>
             Edit Profile
           </div> */}
-          <div className='btn btn--blue u-margin-right-small' onClick={() => matches()}>
-            Find Matches
-          </div>
+          {/*<div className='btn btn--blue u-margin-right-small' onClick={this.createGroup.bind(this)}>
+            Create Group
+          </div> */}
           <div className='btn btn--blue' onClick={() => auth.signOut()}>
             Sign out
           </div>

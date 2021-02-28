@@ -9,14 +9,17 @@
   width: 400px !important;
   height: 50px;
   background: #f1f3f4 !important;
+  font-size: 18px;
 }
 
 .company-search-input:focus {
   background: #ffffff !important;
+  font-size: 18px;
 }
 
 .navigation {
-  margin-left: 600px;
+  margin-left: 1000px;
+  transform: translate(50px, -10px);
 }
 
 .search-bar {
@@ -29,4 +32,16 @@
   margin-bottom: 0px;
   font-size: 4rem;
   transform: translate(-100px, 20px);
+}
+
+.navigation-bar {
+  margin-bottom: 20px;
+}
+
+.user-container {
+  display: inline-block;
+}
+
+.interest {
+  font-size: 30px;
 }
