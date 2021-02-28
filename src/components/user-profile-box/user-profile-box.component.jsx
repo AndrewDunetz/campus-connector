@@ -5,7 +5,7 @@ import MessagingComponent from '../../pages/messaging/messaging.component';
 
 import './user-profile-box.styles.scss';
 
-const UserProfileBox = ({ displayName, email }) => (
+const UserProfileBox = ({ displayName }) => (
   <div className="user-profile-box" >
       <span className='username'>{displayName}</span>
       {/* <div className='btn-small btn--blue message-btn'>Message</div> */}

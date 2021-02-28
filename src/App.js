@@ -50,7 +50,13 @@ class App extends React.Component {
         {/* <Header /> */}
         <Switch>
           <Route exact path='/' component={Header} />
-          <Route exact path='/messages' component={MessagingComponent} />
+          <Route 
+            exact 
+            path='/messages'
+            render={(user) => (
+            <MessagingComponent {...user} />
+            )}
+          />
           {/* <Route exact path='/homepage' component={HomePage} />  */}
           <Route 
             exact 
