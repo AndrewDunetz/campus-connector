@@ -35,8 +35,8 @@ const Header = ({ currentUser, hidden }) => (
       </h1>
       
       {/* <a href='#' className='btn btn--blue btn--animated'>Find friends</a> */}
-      <Link className='btn btn--blue btn--animated' to='/messages'>
-        Temp messaging button
+      <Link className='btn btn--blue btn--animated' to='/signin'>
+        Find Friends
       </Link>
     </div>
   </header>

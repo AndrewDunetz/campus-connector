@@ -241,8 +241,8 @@ class Directory extends React.Component {
     return (
       <div>
         <h1 className='heading-secondary'>
-            Campus Connector
-          </h1>
+          Campus Connector
+        </h1>
         <div className='navigation'>
           {/* <div className='btn btn--blue u-margin-right-small'>
             Edit Profile

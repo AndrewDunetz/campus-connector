@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 
-import firebase from 'firebase/app';
+// import firebase from 'firebase/app';
+import firebase from '../../firebase/firebase.utils';
 import 'firebase/firestore';
 import 'firebase/auth';
 import {useAuthState} from 'react-firebase-hooks/auth';
@@ -13,6 +14,7 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 // var target;
 
+//Defines the current and target users, and starts the chat function
 function MessagingComponent() {
     
     const [user] = useAuthState(auth);
@@ -34,9 +36,8 @@ function MessagingComponent() {
     )
 }
 
-/*
-    handles the chat window and the displayed messages
-*/
+
+//handles the chat window and the displayed messages
 function Chat() {
 
     const conversationsRef = firestore.collection('/conversations');
@@ -117,9 +118,8 @@ function Chat() {
     )
 }
 
-/*
-represents an individual message sent in the chat
-*/
+
+//represents an individual message sent in the chat
 function ChatMessage(props) {
     const {text, uid} = props.message;
     const messageType = uid === auth.currentUser.uid ? 'sent' : 'received'
@@ -132,6 +132,10 @@ function ChatMessage(props) {
     </div>
     )
 }
-
+// const MessagingComponent = () => {
+//     return (
+//     <div>Hi</div>
+//     )
+// }
 
 export default MessagingComponent;
