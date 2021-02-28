@@ -11,15 +11,17 @@ import './messaging.styles.scss';
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
+// const target;
 
-function MessagingComponent() {
+function MessagingComponent(/*targetID*/) {
     
     const [user] = useAuthState(auth);
+    //target = firestore.collection('users').doc(targetID);
     
     return (
         <div className = "MessagingComponent">
             <header>
-                <h1>{"This is a chat window"}</h1>
+                <h1>{"Chat with " /*+ target.displayName*/}</h1>
             </header>
 
             <section>
@@ -42,7 +44,7 @@ function Chat() {
 
     const messagesRef = firestore.collection('/conversations/' + currentConversation + '/messages');
 
-    const query = messagesRef.orderBy('createdAt').limit(messageLimit + 3);
+    const query = messagesRef.orderBy('createdAt').limitToLast(messageLimit + 3);
 
     const [messages] = useCollectionData(query, { idField: 'id' });
 

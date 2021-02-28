@@ -136,7 +136,7 @@ function Type() {
           {users.map(user => (
             // <li>
               // <span key={user.indexOf(user)}>{user}</span>
-              <UserProfileBox {...user}>{user}</UserProfileBox>
+              <UserProfileBox key={user} {...user}>{user}</UserProfileBox>
             // </li>
           ))}
         {/* </ul> */}
