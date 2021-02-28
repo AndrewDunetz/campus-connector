@@ -1,4 +1,42 @@
+// module.exports = async function matchUser(db, doc)
+// {
+//  try {
 
+//          var user = doc["User"];
+//          if ("Interests" in doc)
+//          {
+//             var interests = doc["Interests"];
+//             var match = {}
+//             var done = true;
+//             var ctr = 0;
+//             interests.forEach(async function(interest) {
+//                ctr++;
+//                console.log("################################################");
+//                console.log("Looking for others with this interest: " + interest);
+//                var docRef = await db.collection("users").where("Interests", "array-contains", interest).get().then(async function(querySnapshot) {
+//                     console.log("FOUND " + querySnapshot.size + " matches for " + interest + " for " + user);
+         
+//                     if (querySnapshot.size > 1)
+//                     {
+//                          match[interest] = querySnapshot.size;
+//                     }
+
+//                });
+//                if (ctr === interests.length)
+//                {
+//                    return match;
+//                }
+//             })
+//          }
+//  } catch (e) {
+//    console.log(`Error: ${e}`);
+//    console.trace(e.stack);
+//  }
+
+// }
+
+
+function findMatches() {
 const path = require("path");
 const rp = require("request-promise");
 //const pdf = require("pdf-parse");
@@ -131,4 +169,7 @@ console.log("DOC ID - " + doc.id);
   }
 
 }
-run();
+}
+//run();
+
+export default findMatches;

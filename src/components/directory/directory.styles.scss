@@ -7,9 +7,26 @@
 
 .company-search-input {
   width: 400px !important;
+  height: 50px;
   background: #f1f3f4 !important;
 }
 
 .company-search-input:focus {
   background: #ffffff !important;
+}
+
+.navigation {
+  margin-left: 600px;
+}
+
+.search-bar {
+  margin-top: 30px;
+  margin-left: 200px;
+}
+
+.heading-secondary {
+  position: relative;
+  margin-bottom: 0px;
+  font-size: 4rem;
+  transform: translate(-100px, 20px);
 }

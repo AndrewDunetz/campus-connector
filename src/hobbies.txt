@@ -767,3 +767,40 @@ Little League
 Drinking Wine
 Tailgating
 Other
+East Ambler Johnston
+West Ambler Johnston
+Main Campbell
+East Campbell
+Cochrane
+East Eggleston
+Main Eggleston
+West Eggleston
+GLC at Donaldson Brown
+Harper
+Hillcrest
+Hoge
+Johnson
+Miles
+New Hall West
+New Residence Hall East
+Newman
+O'Shaugnessy
+Payne
+East Pearson
+West Pearson
+Peddrew-Yates
+Pritchard
+Slusher
+Vawter
+Whitehurst
+VTCC
+CS 1114
+CS 2114
+CS 2104
+CS 2505
+CS 2506
+CS 3114 
+CS 3214
+CS 3604
+MATH 1225
+MATH 1226

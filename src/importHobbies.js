@@ -94,6 +94,7 @@ async function run()
         {
            collectionName = line.replace("COLLECTION_NAME: ","");
            docRef = db.collection(collectionName);
+           console.log("HELLO");
         }
         else
         {
